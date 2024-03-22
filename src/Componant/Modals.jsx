@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Modals.scss';
+import { FaAngleRight, FaAngleLeft } from "react-icons/fa"; 
 
 const Modals = () => {
   // Array containing image paths for the carousel
@@ -43,6 +44,16 @@ const Modals = () => {
         <img src={image} alt={`Thumbnail ${index + 1}`} />
       </button>
     ));
+  
+  };
+
+  const handlePrevIconClick = () => {
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? carouselImages.length - 1 : prevIndex - 1));
+  };
+  
+  // Function to handle click on next icon
+  const handleNextIconClick = () => {
+    setActiveIndex((prevIndex) => (prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1));
   };
 
   return (
@@ -51,26 +62,29 @@ const Modals = () => {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
             </div>
             <div className="modal-body">
               <div id="carouselExampleControls" className="carousel slide slide" data-bs-ride="carousel">
                 <div className="carousel-inner">
                   {renderCarouselItems()}
                 </div>
-                <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                  <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span className="visually-hidden">Previous</span>
-                </button>
-                <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                  <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span className="visually-hidden">Next</span>
-                </button>
+            
               </div>
               {/* Render thumbnails */}
               <div className="thumbnail-container">
                 {renderThumbnails()}
               </div>
+              {/* <div className="angles">
+              <FaAngleLeft className='left'/>
+                <FaAngleRight className='right'/>
+              </div> */}
+               <div className="angless">
+          
+               <FaAngleLeft className="carousel-icon" onClick={handlePrevIconClick} /> 
+                <FaAngleRight className="carousel-icon" onClick={handleNextIconClick} />
+          </div>
+              
             </div>
           </div>
         </div>
@@ -134,6 +148,7 @@ const Modals = () => {
           </tr>
         </tbody>
       </table>
+      
     </div>
   );
 }
